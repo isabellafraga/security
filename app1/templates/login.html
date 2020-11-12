@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+        <head>
+            <meta charset="UTF-8">
+            <title>Title</title>
+            <link rel="stylesheet" href={% static "css/style.css" %}>
+        </head>
+    <body>
+        <div class="logo">
+            <a href="{% url 'app1:index' %}"><img src="{% static "css/imgs/logo.png" %}" class="logo" alt="Minha Imagem"></a>
+        </div>
+        <div class="login-box">
+
+            <form method="post" action="{% url 'app1:login' %}">
+                {% csrf_token %}
+                <h1>Login</h1>
+                <div class="textbox">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="usuario" placeholder="Usuário">
+                </div>
+                <div class="textbox">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="senha" placeholder="Senha">
+                </div>
+
+                <input type="submit" class="btn" value="Entrar">
+            </form>
+
+        </div>
+    </body>
+</html>
