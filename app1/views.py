@@ -4,6 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from app1.forms import FormCliente, FormFuncionario, InfoFun
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
+from app1.models import Funcionario
+
 
 def index(request):
     return render(request, 'index.html')
@@ -55,32 +59,76 @@ def cliente(request):
                   {'user_form': user_form,
                    'cadastrado': cadastrado})
 
-def funcionario(request):
-    cadastrado = False
+# PÁGINA PRINCIPAL
+# ----------------------------------------------
 
-    if request.method == 'POST':
-        info_form = InfoFun(data=request.POST)
-        func_form = FormFuncionario(data=request.POST)
+class IndexTemplateView(TemplateView):
+    template_name = "funcionarioprincipal.html"
 
-        if info_form.is_valid() and func_form.is_valid():
-            user = info_form.save()
-            user.set_password(user.password)
-            user.save()
+# LISTA DE FUNCIONÁRIOS
+# ----------------------------------------------
 
-            perfil = func_form.save(commit=False)
-            perfil.usuario = user
+class FuncionarioListView(ListView):
+    template_name = "lista.html"
+    model = Funcionario
+    context_object_name = "funcionarios"
 
-            perfil.save()
+# CADASTRAMENTO DE FUNCIONÁRIOS
+# ----------------------------------------------
 
-            cadastrado = True
-        else:
-            print(info_form.errors, func_form.errors)
+class FuncionarioCreateView(CreateView):
+    template_name = "cadastra.html"
+    model = Funcionario
+    form_class = FormFuncionario, InfoFun
+    success_url = reverse_lazy("app1:lista_funcionarios")
 
-    else:
-        info_form = InfoFun()
-        func_form = FormFuncionario()
+# ATUALIZAÇÃO DE FUNCIONÁRIOS
+# ----------------------------------------------
 
-    return render(request, 'funcionario.html',
-                  {'info_form': info_form,
-                   'func_form': func_form,
-                   'cadastrado': cadastrado})
+class FuncionarioUpdateView(UpdateView):
+    template_name = "atualiza.html"
+    model = Funcionario
+    fields = '__all__'
+    context_object_name = 'funcionario'
+    success_url = reverse_lazy("app1:lista_funcionarios")
+
+
+# EXCLUSÃO DE FUNCIONÁRIOS
+# ----------------------------------------------
+
+class FuncionarioDeleteView(DeleteView):
+    template_name = "exclui.html"
+    model = Funcionario
+    context_object_name = 'funcionario'
+    success_url = reverse_lazy("app1:lista_funcionarios")
+
+
+#def cadastra(request):
+#    cadastrado = False
+#
+#    if request.method == 'POST':
+ #       info_form = InfoFun(data=request.POST)
+  #      func_form = FormFuncionario(data=request.POST)
+#
+ #       if info_form.is_valid() and func_form.is_valid():
+  #          user = info_form.save()
+   #         user.set_password(user.password)
+    #        user.save()
+#
+ #           perfil = func_form.save(commit=False)
+  #          perfil.usuario = user
+#
+ #           perfil.save()
+#
+ #           cadastrado = True
+  #      else:
+   #         print(info_form.errors, func_form.errors)
+#
+ #   else:
+  #      info_form = InfoFun()
+   #     func_form = FormFuncionario()
+#
+ #   return render(request, 'cadastra.html',
+  #                {'info_form': info_form,
+   #                'func_form': func_form,
+    #               'cadastrado': cadastrado})

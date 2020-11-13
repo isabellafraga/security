@@ -1,6 +1,6 @@
 <!DOCTYPE html>
  <html lang="pt-br">
-   {% load static tempo_atual %}
+   {% load static %}
 
 
      <head>
@@ -15,8 +15,8 @@
            <link rel="shortcut icon" href="{% static 'css/imgs/logo.png' %}" type="image/png">
 
            <!-- Arquivos CSS -->
+           <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-           <link rel="stylesheet" href="{% static "css/base.css" %}"/>
 
            {% block styles %}{% endblock %}
      </head>
@@ -25,7 +25,9 @@
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
                 <div class="navbar-nav">
-                    <img src="{% static "css/imgs/logo.png" %}" height="45px" class="rounded float-left">
+                    <a class="navbar-brand" href="{% url 'app1:index' %}">
+                      <img src="{% static "css/imgs/logo.png" %}" height="45px" class="rounded float-left" alt="">
+                    </a>
 
                     {% if user.is_authenticated %}
                         <button class="navbar-toggler" type="button"
@@ -38,25 +40,28 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                      <a class="nav-item nav-link" href="{% url 'app1:index' %}">Home</a>
+                                      <a class="nav-item nav-link" href="{% url 'app1:index' %}">Início</a>
                                 </li>
                                 <li class="nav-item">
                                       <a class="nav-item nav-link" href="{% url 'app1:cliente' %}">Cadastrar Cliente</a>
                                 </li>
                                 <li class="nav-item">
-                                      <a class="nav-item nav-link" href="{% url 'app1:funcionario' %}">Cadastrar Funcionario</a>
+                                      <a class="nav-item nav-link" href="{% url 'app1:fun' %}">Cadastrar Funcionario</a>
                                 </li>
                                 <li class="nav-item">
-                                      <a class="nav-item nav-link" href="{% url 'app1:logout' %}">Logout</a>
+                                      <a class="nav-item nav-link" href="{% url 'app1:cadastra_funcionario' %}">Funcionario</a>
+                                </li>
+                                <li class="nav-item">
+                                      <a class="nav-item nav-link" href="{% url 'app1:logout' %}">Sair</a>
                                 </li>
                             </ul>
 
-                        </div>
                                     {% endif %}
 
                                     {% if user.is_staff %}
                                     <a class="nav-item nav-link" href="{% url 'admin:index' %}">Admin</a>
                                     {% endif %}
+                        </div>
                 </div>
             </nav>
                     <footer class="footer mt-auto text-center fixed-bottom">

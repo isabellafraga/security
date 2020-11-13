@@ -35,3 +35,5 @@ class Funcionario(models.Model):
 
     def __str__(self):
         return self.usuario.username
+
+    objetos = models.Manager()
