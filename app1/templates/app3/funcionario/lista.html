@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "app3/_layouts/base.html" %}
 
 {% block title %}Lista de Funcionários{% endblock %}
 
@@ -22,16 +22,12 @@
               <tr>
                 <th scope="col"></th>
                 <th scope="col">Nome</th>
-                <th scope="col">Sobrenome</th>
                 <th scope="col">E-mail</th>
                 <th scope="col">Usuário</th>
                 <th scope="col">Senha</th>
                 <th scope="col">Ativo</th>
-                <th scope="col">CPF</th>
-                <th scope="col">CTPS</th>
                 <th scope="col">Telefone</th>
                 <th scope="col">Endereço</th>
-                <th scope="col">Salário</th>
                 <th scope="col">Cargo</th>
                 <th scope="col" class="text-center">Ações</th>
               </tr>
@@ -39,17 +35,13 @@
               <tbody>
               {% for funcionario in funcionarios %}
                 <tr>
-                  <th scope="row">{{ funcionario.first_name|primeira_letra }}</th>
-                  <td>{{ funcionario.last_name }}</td>
+                  <th scope="row">{{ funcionario.first_name }}</th>
                   <td>{{ funcionario.email }}</td>
                   <td>{{ funcionario.username }}</td>
                   <td>{{ funcionario.password }}</td>
                   <td>{{ funcionario.is_active }}</td>
-                  <td>{{ funcionario.CPF }}</td>
-                  <td>{{ funcionario.CTPS }}</td>
                   <td>{{ funcionario.telefone }}</td>
                   <td>{{ funcionario.endereco }}</td>
-                  <td>{{ funcionario.salario }}</td>
                   <td>{{ funcionario.cargo }}</td>
                   <td class="text-center">
                     <a href="{% url 'app1:atualiza_funcionario' pk=funcionario.id %}"

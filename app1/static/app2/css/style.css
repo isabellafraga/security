@@ -2,7 +2,7 @@
 body{
   margin: 0;
   padding: 0;
-  background: url(imgs/fundo-login.jpg) fixed;
+  background: url(../imgs/fundo-login.jpg) fixed;
   background-size: cover;
   font-family: "Century Gothic";
 }

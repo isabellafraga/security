@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'app1',
     'crispy_forms',
     'widget_tweaks',
+    'cpf_field',
+
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -64,8 +66,7 @@ ROOT_URLCONF = 'security.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,7 +88,7 @@ WSGI_APPLICATION = 'security.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

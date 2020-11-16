@@ -6,11 +6,11 @@ from django.urls import reverse
 from app1.forms import FormCliente, FormFuncionario, InfoFun
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
-from app1.models import Funcionario
+from app1.models import Funcionario, Cliente
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'app3/index.html')
 
 def loginn(request):
     if request.method == 'POST':
@@ -30,46 +30,46 @@ def loginn(request):
             return HttpResponse("O Login ou Senha Está Incorreto.")
 
     else:
-        return render(request, 'login.html', {})
+        return render(request, 'app3/login.html', {})
 
 @login_required
 def logoutt(request):
     logout(request)
     return HttpResponseRedirect(reverse('login'))
 
-def cliente(request):
-    cadastrado = False
+#def cliente(request):
+ #   cadastrado = False
+#
+ #   if request.method == 'POST':
+  #      user_form = FormCliente(data=request.POST)
+#
+#
+ #       if user_form.is_valid():
+  #          user = user_form.save()
+   #         user.save()
+#
+ #           cadastrado = True
+  #      else:
+   #         print(user_form.errors)
+#
+ #   else:
+  #      user_form = FormCliente()
+#
+ #   return render(request, 'app3/cliente/cadastra.html',
+  #                {'user_form': user_form,
+   #                'cadastrado': cadastrado})
 
-    if request.method == 'POST':
-        user_form = FormCliente(data=request.POST)
-
-
-        if user_form.is_valid():
-            user = user_form.save()
-            user.save()
-
-            cadastrado = True
-        else:
-            print(user_form.errors)
-
-    else:
-        user_form = FormCliente()
-
-    return render(request, 'cliente.html',
-                  {'user_form': user_form,
-                   'cadastrado': cadastrado})
-
-# PÁGINA PRINCIPAL
+# PÁGINA PRINCIPAL FUNCIONARIO
 # ----------------------------------------------
 
-class IndexTemplateView(TemplateView):
-    template_name = "funcionarioprincipal.html"
+class IndexFuncionarioTemplateView(TemplateView):
+    template_name = "app3/funcionario/principal.html"
 
 # LISTA DE FUNCIONÁRIOS
 # ----------------------------------------------
 
 class FuncionarioListView(ListView):
-    template_name = "lista.html"
+    template_name = "app3/funcionario/lista.html"
     model = Funcionario
     context_object_name = "funcionarios"
 
@@ -77,16 +77,22 @@ class FuncionarioListView(ListView):
 # ----------------------------------------------
 
 class FuncionarioCreateView(CreateView):
-    template_name = "cadastra.html"
+    template_name = "app3/funcionario/cadastra.html"
     model = Funcionario
-    form_class = FormFuncionario, InfoFun
+    form_class = FormFuncionario
     success_url = reverse_lazy("app1:lista_funcionarios")
+
+class Funcionario2CreateView(CreateView):
+   template_name = "app3/funcionario/cadastra.html"
+   model = Funcionario
+   form_class = InfoFun
+   success_url = reverse_lazy("app1:lista_funcionarios")
 
 # ATUALIZAÇÃO DE FUNCIONÁRIOS
 # ----------------------------------------------
 
 class FuncionarioUpdateView(UpdateView):
-    template_name = "atualiza.html"
+    template_name = "app3/funcionario/atualiza.html"
     model = Funcionario
     fields = '__all__'
     context_object_name = 'funcionario'
@@ -97,11 +103,55 @@ class FuncionarioUpdateView(UpdateView):
 # ----------------------------------------------
 
 class FuncionarioDeleteView(DeleteView):
-    template_name = "exclui.html"
+    template_name = "app3/funcionario/exclui.html"
     model = Funcionario
     context_object_name = 'funcionario'
     success_url = reverse_lazy("app1:lista_funcionarios")
 
+##################################################################################
+
+# PÁGINA PRINCIPAL CLIENTE
+# ----------------------------------------------
+
+class IndexClienteTemplateView(TemplateView):
+    template_name = "app3/cliente/principal.html"
+
+# LISTA DE CLIENTE
+# ----------------------------------------------
+
+class ClienteListView(ListView):
+    template_name = "app3/cliente/lista.html"
+    model = Cliente
+    context_object_name = "clientes"
+
+# CADASTRAMENTO DE CLIENTE
+# ----------------------------------------------
+
+class ClienteCreateView(CreateView):
+    template_name = "app3/cliente/cadastra.html"
+    model = Cliente
+    form_class = FormCliente
+    success_url = reverse_lazy("app1:lista_clientes")
+
+# ATUALIZAÇÃO DE CLIENTE
+# ----------------------------------------------
+
+class ClienteUpdateView(UpdateView):
+    template_name = "app3/cliente/atualiza.html"
+    model = Cliente
+    fields = '__all__'
+    context_object_name = 'cliente'
+    success_url = reverse_lazy("app1:lista_clientes")
+
+
+# EXCLUSÃO DE CLIENTE
+# ----------------------------------------------
+
+class ClienteDeleteView(DeleteView):
+    template_name = "app3/cliente/exclui.html"
+    model = Cliente
+    context_object_name = 'cliente'
+    success_url = reverse_lazy("app1:lista_clientes")
 
 #def cadastra(request):
 #    cadastrado = False

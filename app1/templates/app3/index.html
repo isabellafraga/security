@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% extends "base.html" %}
+{% extends "app3/_layouts/base.html" %}
 {% load static %}
 
 {% block conteudo %}
@@ -21,8 +21,8 @@
   <body class="d-flex flex-column h-100">
     <main role="main" class="flex-shrink-0" style="padding: 60px 15px 0;">
         <div class="imagem"></div>
-          <link rel="stylesheet" href="{% static "css/index.cs" %}"/>
-          <div class="conteudo"></div>
+          <link rel="stylesheet" href="{% static "app2/css/index.cs" %}">
+        <div class="conteudo"></div>
              <div class="row align-items-center">
                 <div class="col align-self-center">
                    <div class="mt-5 text-center">

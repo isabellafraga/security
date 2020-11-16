@@ -28,12 +28,28 @@ class Funcionario(models.Model):
     telefone = models.CharField(max_length=12, blank=False, null=True)
     endereco = models.CharField(max_length=150, blank=False, null=True)
     CTPS = models.CharField(max_length=11, blank=False, null=True)
-    salario = models.CharField(max_length=5, blank=False, null=True)
+    salario = models.DecimalField(max_digits=8, decimal_places=2, blank=False, null=True)
     admissao = models.DateField(auto_now=True, blank=False, null=True)
     cargo = models.CharField(max_length=1, blank=False, choices=CARGO_CHOICES, null=True)
 
 
     def __str__(self):
         return self.usuario.username
+
+class Fornecedor(models.Model):
+    CATEGORIA_CHOICES = [
+        ["CFTV", "CFTV"],
+        ["AL", "Alarme"],
+        ["CA", "Controle de Acesso"],
+        ["TE", "Telefonia"],
+        ["RE", "Redes"],
+        ["PE", "Portão Eletrônico"],
+    ]
+    nome = models.CharField(max_length=100, blank=False, null=True)
+    email = models.EmailField(blank=False, null=True)
+    telefone = models.CharField(max_length=12, blank=False, null=True)
+    endereco = models.CharField(max_length=150, blank=False, null=True)
+    CNPJ = models.CharField(max_length=14, blank=False, null=True)
+    categoria = models.CharField(max_length=6, blank=False, choices=CATEGORIA_CHOICES, null=True)
 
     objetos = models.Manager()

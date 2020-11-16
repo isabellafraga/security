@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+ <html lang="pt-br">
+   {% load static tempo_atual %}
+
+
+     <head>
+           <meta charset="UTF-8">
+           <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+           <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+           <!-- Title -->
+           <title>{% block title %}Security{% endblock %}</title>
+
+           <!-- Favicon -->
+           <link rel="shortcut icon" href="{% static 'app2/imgs/logo.png' %}" type="image/png">
+
+           <!-- Arquivos CSS -->
+           <link rel="stylesheet" type="text/css" href="{% static 'app2/css/bootstrap.min.css' %}">
+           <link rel="stylesheet" type="text/css" href="{% static "app2/css/base.css" %}">
+           <link rel="stylesheet" type="text/css" href="{% static 'app2/css/master.css' %}">
+
+
+           {% block styles %}{% endblock %}
+     </head>
+     <body>
+
+         <header class="header">
+                     <!-- Navbar -->
+            <nav class="navbar navbar-default navbar-expand-lg navbar-dark bg-dark flex-column flex-md-row">
+                    <a class="navbar-brand" rel="base" href="{% url 'app1:index' %}">
+                      <img alt="Base Security" src="{% static "app2/imgs/logo.png" %}" data-aos-easing="ease-out" data-aos="fade-in" data-aos-duration="550" height="45px" >
+                    </a>
+                <div class="navbar-nav">
+
+                        <button class="navbar-toggler" type="button"
+                                data-toggle="collapse" data-target="#navbarSupportedContent"
+                                aria-controls="navbarSupportedContent" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                            <span class="sr-only">Habilitar navegação</span>
+                            <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="nav justify-content-end">
+                                <li class="nav-item active">
+                                      <a class="nav-item nav-link" href="{% url 'app1:index' %}">Início</a>
+                                </li>
+                                <li class="nav-item">
+                                      <a class="nav-item nav-link" href="{% url 'app1:principalcliente' %}">Cliente</a>
+                                </li>
+                                <li class="nav-item">
+                                      <a class="nav-item nav-link" href="{% url 'app1:principalfuncionario' %}">Funcionário</a>
+                                </li>
+                                <li class="nav-item">
+                                      <a class="nav-item nav-link" href="{% url 'app1:logout' %}">Sair</a>
+                                </li>
+                                {% if user.is_staff %}
+                                    <li class="nav-item">
+                                       <a class="nav-item nav-link" href="{% url 'admin:index' %}">Admin</a>
+                                    </li>
+                                    {% endif %}
+                            </ul>
+
+
+                        </div>
+                </div>
+            </nav>
+         </header>
+                    <footer class="footer mt-auto text-center fixed-bottom">
+                        <div class="rodape">
+                                <p class="p-rodape">Desenvolvido por Isabella Fraga e Rogério Dagnon ®</p>
+                        </div>
+                    </footer>
+
+                     <!-- Conteúdo do site -->
+                     {% block conteudo %}{% endblock %}
+
+
+                     <!-- Scripts .js -->
+                     <script src="{% static 'app2/js/jquery.min.js' %}"></script>
+                     <script src="{% static 'app2/js/bootstrap.min.js' %}"></script>
+
+                     {% block scripts %}{% endblock %}
+
+                     <script src="{% static 'app2/js/scripts.js' %}"></script>
+
+
+     </body>
+ </html>

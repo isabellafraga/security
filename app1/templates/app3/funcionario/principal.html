@@ -1,5 +1,5 @@
 <!-- Estendemos do template base -->
-{% extends "base.html" %}
+{% extends "app3/_layouts/base.html" %}
 
 <!-- Bloco que define o <title></title> da nossa página -->
 {% block title %}Página Inicial{% endblock %}
@@ -15,10 +15,7 @@
           <p class="card-text">
             Cadastre aqui um novo <code>Funcionário</code>.
           </p>
-          <a href="{% url 'app1:cadastra_funcionario' %}"
-             class="btn btn-primary">
-            Novo Funcionário
-          </a>
+          <a href="{% url 'app1:cadastra_funcionario' %}" class="btn btn-primary">Novo Funcionário</a>
         </div>
       </div>
     </div>
@@ -29,10 +26,7 @@
           <p class="card-text">
             Veja aqui a lista de <code>Funcionários</code> cadastrados.
           </p>
-          <a href="{% url 'app1:lista_funcionarios' %}"
-             class="btn btn-primary">
-            Vá para Lista
-          </a>
+          <a href="{% url 'app1:lista_funcionarios' %}" class="btn btn-primary">Vá para Lista</a>
         </div>
       </div>
     </div>
