@@ -26,9 +26,9 @@
 
          <header class="header">
                      <!-- Navbar -->
-            <nav class="navbar navbar-default navbar-expand-lg navbar-dark bg-dark flex-column flex-md-row">
+            <nav class="navbar shadow p-3 mb-5 bg-white rounded navbar-expand-lg navbar-light bg-light flex-column flex-md-row">
                     <a class="navbar-brand" rel="base" href="{% url 'app1:index' %}">
-                      <img alt="Base Security" src="{% static "app2/imgs/logo.png" %}" data-aos-easing="ease-out" data-aos="fade-in" data-aos-duration="550" height="45px" >
+                      <img alt="Base Security" src="{% static "app2/imgs/logo.png" %}" data-aos-easing="ease-out" data-aos="fade-in" data-aos-duration="550" height="45px">Security
                     </a>
                 <div class="navbar-nav">
 
@@ -45,20 +45,32 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="nav justify-content-end">
                                 <li class="nav-item active">
-                                      <a class="nav-item nav-link" href="{% url 'app1:index' %}">Início</a>
+                                      <a class="nav-item text-dark  nav-link" href="{% url 'app1:index' %}">Início</a>
                                 </li>
                                 <li class="nav-item">
-                                      <a class="nav-item nav-link" href="{% url 'app1:principalcliente' %}">Cliente</a>
+                                      <a class="nav-item text-dark nav-link" href="{% url 'app1:principalcliente' %}">Cliente</a>
                                 </li>
                                 <li class="nav-item">
-                                      <a class="nav-item nav-link" href="{% url 'app1:principalfuncionario' %}">Funcionário</a>
+                                      <a class="nav-item text-dark nav-link" href="{% url 'app1:principalfuncionario' %}">Funcionário</a>
                                 </li>
                                 <li class="nav-item">
-                                      <a class="nav-item nav-link" href="{% url 'app1:logout' %}">Sair</a>
+                                      <a class="nav-item text-dark nav-link" href="{% url 'app1:principalfornecedor' %}">Fornecedor</a>
+                                </li>
+                                <li class="nav-item">
+                                      <a class="nav-item text-dark nav-link" href="{% url 'app1:manutencao' %}">Orçamento</a>
+                                </li>
+                                <li class="nav-item">
+                                      <a class="nav-item text-dark nav-link" href="{% url 'app1:manutencao' %}">Agenda</a>
+                                </li>
+                                <li class="nav-item">
+                                      <a class="nav-item text-dark nav-link" href="{% url 'app1:manutencao' %}">Meta</a>
+                                </li>
+                                <li class="nav-item">
+                                      <a class="nav-item text-dark nav-link" href="{% url 'app1:logout' %}">Sair</a>
                                 </li>
                                 {% if user.is_staff %}
                                     <li class="nav-item">
-                                       <a class="nav-item nav-link" href="{% url 'admin:index' %}">Admin</a>
+                                       <a class="nav-item text-dark nav-link" href="{% url 'admin:index' %}">Admin</a>
                                     </li>
                                     {% endif %}
                             </ul>
