@@ -3,10 +3,85 @@
 {% load widget_tweaks %}
 {% load crispy_forms_tags %}
 {% load crispy_forms_filters %}
+{% load static %}
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Fornecedor</title>
+    <title>Cadastrar Fornecedor</title>
+    <script type="text/javascript">
+
+	var idContador = 0;
+
+	function exclui(id){
+		var campo = $("#"+id.id);
+		campo.hide(200);
+	}
+
+	$( document ).ready(function() {
+
+		$("#btnAdicionaCategoria").click(function(e){
+			e.preventDefault();
+			var tipoCampo = "categoria";
+			adicionaCampo(tipoCampo);
+		})
+
+		function adicionaCampo(tipo){
+
+			idContador++;
+
+			var idCampo = "campoExtra"+idContador;
+			var idForm = "formExtra"+idContador;
+
+			var html = "";
+
+			html += "<div style='margin-top: 8px;' class='input-group' id='"+idForm+"'>";
+			html += "<input type='text' id='"+idCampo+"' class='form-control novoCampo' placeholder='Insira um "+tipo+"'/>";
+			html += "<span class='input-group-btn'>";
+			html +=	"<button class='btn' onclick='exclui("+idForm+")' type='button'><span class='fa fa-trash'></span></button>";html +=	"<button class='btn' onclick='exclui("+idForm+")' type='button'><span class='fa fa-trash'></span></button>";
+			html += "</span>";
+			html += "</div>";
+
+			$("#imendaHTML"+tipo).append(html);
+		}
+
+		$(".btnExcluir").click(function(){
+			console.log("clicou");
+			$(this).slideUp(200);
+		})
+
+		$("#btnSalvar").click(function(){
+
+		var mensagem = "";
+		var novosCampos = [];
+		var camposNulos = false;
+
+			$('.campoDefault').each(function(){
+				if($(this).val().length < 1){
+					camposNulos = true;
+				}
+			});
+			$('.novoCampo').each(function(){
+				if($(this).is(":visible")){
+					if($(this).val().length < 1){
+						camposNulos = true;
+					}
+					//novosCampos.push($(this).val());
+					mensagem+= $(this).val()+"\n";
+				}
+			});
+
+			if(camposNulos == true){
+				alert("Atenção: existem campos nulos");
+			}else{
+				alert("Novos campos adicionados: \n\n "+mensagem);
+			}
+
+			novosCampos = [];
+		})
+
+	});
+
+	</script>
 </head>
 <body>
     {% block conteudo %}
@@ -34,7 +109,7 @@
                          <div class="input-group-prepend">
                                <span class="input-group-text">E-mail</span>
                          </div>
-                            {% render_field form.email class+="form-control" %}
+                            {% render_field form.email class+="form-control" placeholder="nome@exemplo.com" %}
                     </div>
 
                                        <!-- Telefone -->
@@ -42,7 +117,7 @@
                          <div class="input-group-prepend">
                                <span class="input-group-text">Telefone</span>
                          </div>
-                            {% render_field form.telefone class+="form-control" %}
+                            {% render_field form.telefone class+="form-control" placeholder="(43)00000-0000" %}
                     </div>
 
                                       <!-- Endereço -->
@@ -57,16 +132,22 @@
                          <div class="input-group-prepend">
                                <span class="input-group-text">CNPJ</span>
                          </div>
-                            {% render_field form.CNPJ class+="form-control" %}
+                            {% render_field form.CNPJ class+="form-control" placeholder="00.000.000/0000-00" %}
                     </div>
 
                                          <!-- Categoria -->
                     <div class="input-group mb-3">
-                         <div class="input-group-prepend">
-                               <span class="input-group-text">Categoria</span>
-                         </div>
-                            {% render_field form.categoria class+="form-control" %}
+                        <div class="input-group-prepend">
+                             <span class="input-group-text">Categoria</span>
+                        </div>
+                               {% render_field form.categoria class+="form-control" %}
+                        <div id="imendaHTMLcategoria"></div>
+                        <a href="#" id="btnAdicionaCategoria" ><i class="fa fa-plus"></i></a>
+
                     </div>
+
+
+
 
                        <hr>
                             <div class="text-right">

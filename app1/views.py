@@ -4,10 +4,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from app1.forms import FormCliente, FormFuncionario, FormFornecedor
+from app1.forms import FormCliente, FormFuncionario, FormFornecedor, FormProduto
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
-from app1.models import Funcionario, Cliente, Fornecedor
+from app1.models import Funcionario, Cliente, Fornecedor, Produto
 
 
 def index(request):
@@ -41,40 +41,37 @@ def logoutt(request):
     logout(request)
     return HttpResponseRedirect(reverse('login'))
 
+
 def funcionario(request):
     if request.method == 'POST':
+        form = FormFuncionario(request.POST)
+        if form.is_valid():
+            usuario = User()
+            usuario.first_name = form.cleaned_data['first_name']
+            usuario.last_name = form.cleaned_data['last_name']
+            usuario.email = form.cleaned_data['email']
+            usuario.username = form.cleaned_data['username']
+            usuario.password = form.cleaned_data['password']
 
-        form = FormFuncionario(data=request.POST)
-        usuario = User()
-        usuario.first_name = form.cleaned_data['nome']
-        usuario.last_name = form.cleaned_data['sobrenome']
-        usuario.email = form.cleaned_data['email']
-        usuario.username = form.cleaned_data['usuario']
-        usuario.password = form.cleaned_data['senha']
-        usuario.is_active = True
+            usuario.save()
+            usuario.set_password(usuario.password)
+            usuario.save()
 
-        usuario_salvo = usuario.save(commit=False)
-        usuario_salvo.set_password(usuario_salvo.password)
-        usuario_salvo.save()
+            func = Funcionario()
+            func.CPF = form.cleaned_data['CPF']
+            func.nascimento = form.cleaned_data['nascimento']
+            func.telefone = form.cleaned_data['telefone']
+            func.endereco = form.cleaned_data['endereco']
+            func.CTPS = form.cleaned_data['CTPS']
+            func.cargo = form.cleaned_data['cargo']
 
-        func = Funcionario()
-        func.CPF = form.cleaned_data['cpf']
-        func.nascimento = form.cleaned_data['nascimento']
-        func.telefone = form.cleaned_data['telefone']
-        func.endereco = form.cleaned_data['endereco']
-        func.CTPS = form.cleaned_data['ctps']
-        func.salario = form.cleaned_data['salario']
-        func.admissao = form.cleaned_data['admissao']
-        func.cargo = form.cleaned_data['cargo']
-
-        func.usuario = usuario_salvo
-        func.save()
+            func.usuario = usuario
+            func.save()
+            return HttpResponseRedirect(reverse('app1:lista_funcionarios'))
     else:
         form = FormFuncionario()
 
-    return render(request, 'app3/funcionario/cadastra.html',
-                  {
-                   'form': form})
+    return render(request, 'app3/funcionario/cadastra.html', {'form': form,})
 
 # PÁGINA PRINCIPAL FUNCIONARIO
 # ----------------------------------------------
@@ -215,3 +212,50 @@ class FornecedorDeleteView(DeleteView):
     model = Fornecedor
     context_object_name = 'fornecedor'
     success_url = reverse_lazy("app1:lista_fornecedores")
+
+##################################################################################
+
+# PÁGINA PRINCIPAL CLIENTE
+# ----------------------------------------------
+
+class IndexProdutoTemplateView(TemplateView):
+    template_name = "app3/fornecedor/principal.html"
+
+# LISTA DE CLIENTE
+# ----------------------------------------------
+
+class ProdutoListView(ListView):
+    template_name = "app3/produto/lista.html"
+    model = Produto
+    context_object_name = "produtos"
+
+# CADASTRAMENTO DE CLIENTE
+# ----------------------------------------------
+
+class ProdutoCreateView(CreateView):
+    template_name = "app3/produto/cadastra.html"
+    model = Produto
+    form_class = FormProduto
+    success_url = reverse_lazy("app1:lista_produtos")
+
+# ATUALIZAÇÃO DE CLIENTE
+# ----------------------------------------------
+
+class ProdutoUpdateView(UpdateView):
+    template_name = "app3/produto/atualiza.html"
+    model = Produto
+    fields = '__all__'
+    context_object_name = 'produto'
+    success_url = reverse_lazy("app1:lista_produtos")
+
+
+# EXCLUSÃO DE CLIENTE
+# ----------------------------------------------
+
+class ProdutoDeleteView(DeleteView):
+    template_name = "app3/produto/exclui.html"
+    model = Produto
+    context_object_name = 'produto'
+    success_url = reverse_lazy("app1:lista_produtos")
+
+##################################################################################

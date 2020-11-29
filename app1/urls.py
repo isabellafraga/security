@@ -1,7 +1,8 @@
 from app1.views import IndexFuncionarioTemplateView, FuncionarioListView, FuncionarioUpdateView, \
     FuncionarioDeleteView, IndexClienteTemplateView, ClienteCreateView, ClienteListView, ClienteUpdateView, \
     ClienteDeleteView, IndexFornecedorTemplateView, FornecedorCreateView, FornecedorListView, FornecedorUpdateView, \
-    FornecedorDeleteView
+    FornecedorDeleteView, IndexProdutoTemplateView, ProdutoCreateView, ProdutoListView, ProdutoUpdateView, \
+    ProdutoDeleteView
 from django.urls import path
 from . import views
 
@@ -64,4 +65,22 @@ urlpatterns = [
     # GET/POST /fornecedor/excluir/{pk}
     path('fornecedor/excluir/<pk>', FornecedorDeleteView.as_view(), name="deleta_fornecedor"),
 
+######################################################################################################
+
+    # GET /
+    path('principalfornecedor/', IndexProdutoTemplateView.as_view(), name="principalproduto"),
+
+    # GET /cliente/cadastrar
+    path('produto/cadastrar', ProdutoCreateView.as_view(), name="cadastra_produto"),
+
+    # GET /clientes
+    path('produtos/', ProdutoListView.as_view(), name="lista_produtos"),
+
+    # GET/POST /cliente/{pk}
+    path('produto/<pk>', ProdutoUpdateView.as_view(), name="atualiza_produto"),
+
+    # GET/POST /cliente/excluir/{pk}
+    path('produto/excluir/<pk>', ProdutoDeleteView.as_view(), name="deleta_produto"),
+
+######################################################################################################
 ]

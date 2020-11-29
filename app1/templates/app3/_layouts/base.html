@@ -24,26 +24,29 @@
      </head>
      <body>
 
-         <header class="header">
+
                      <!-- Navbar -->
-            <nav class="navbar shadow p-3 mb-5 bg-white rounded navbar-expand-lg navbar-light bg-light flex-column flex-md-row">
-                    <a class="navbar-brand" rel="base" href="{% url 'app1:index' %}">
-                      <img alt="Base Security" src="{% static "app2/imgs/logo.png" %}" data-aos-easing="ease-out" data-aos="fade-in" data-aos-duration="550" height="45px">Security
-                    </a>
-                <div class="navbar-nav">
+            <nav class="navbar navbar-expand-xl navbar-inverse navbar-fixed-top shadow p-3 mb-5 bg-white rounded navbar-light bg-light flex-column flex-md-row">
+
+                <div class="container-fluid">
+
+                   <div class="navbar-header">
 
                         <button class="navbar-toggler" type="button"
-                                data-toggle="collapse" data-target="#navbarSupportedContent"
-                                aria-controls="navbarSupportedContent" aria-expanded="false"
+                                data-toggle="collapse" data-target="#navbar"
+                                aria-controls="navbar" aria-expanded="false"
                                 aria-label="Toggle navigation">
                             <span class="sr-only">Habilitar navegação</span>
                             <span class="icon-bar"></span>
 					        <span class="icon-bar"></span>
 					        <span class="icon-bar"></span>
                         </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="nav justify-content-end">
+                              <a class="navbar-brand" rel="base" href="{% url 'app1:index' %}">
+                                <img alt="Base Security" src="{% static "app2/imgs/logo.png" %}" data-aos-easing="ease-out" data-aos="fade-in" data-aos-duration="550" height="45px">Security
+                              </a>
+                   </div>
+                        <div class="navbar-collapse collapse" id="navbar">
+                            <ul class="nav navbar-nav navbar-right">
                                 <li class="nav-item active">
                                       <a class="nav-item text-dark  nav-link" href="{% url 'app1:index' %}">Início</a>
                                 </li>
@@ -68,18 +71,23 @@
                                 <li class="nav-item">
                                       <a class="nav-item text-dark nav-link" href="{% url 'app1:logout' %}">Sair</a>
                                 </li>
+
                                 {% if user.is_staff %}
                                     <li class="nav-item">
                                        <a class="nav-item text-dark nav-link" href="{% url 'admin:index' %}">Admin</a>
                                     </li>
+
                                     {% endif %}
                             </ul>
 
 
                         </div>
-                </div>
+                                    <button type="button" class="close" aria-label="Fechar">
+                                       <a href="{% url 'app1:logout' %}" class="close">&times;</a>
+                                    </button>
+               </div>
             </nav>
-         </header>
+
                     <footer class="footer mt-auto text-center fixed-bottom">
                         <div class="rodape">
                                 <p class="p-rodape">Desenvolvido por Isabella Fraga e Rogério Dagnon ®</p>

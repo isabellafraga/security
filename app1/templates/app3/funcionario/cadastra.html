@@ -7,7 +7,7 @@
 {% block title %}Cadastro de Funcionários{% endblock %}
 
 {% block conteudo %}
-     <div class="container mt-2 mb-5">
+     <div class="container mt-0 mb-5">
        <div class="row">
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
            <div class="card">
@@ -17,7 +17,84 @@
 
                 <form enctype="multipart/form-data" method="POST">
                     {% csrf_token %}
-                    {{ form|crispy }}
+                                        <!-- Nome -->
+                    <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                               <span class="input-group-text">Nome</span>
+                         </div>
+                            {% render_field form.first_name class+="form-control" %}
+                    </div>
+                                           <!-- Sobrenome -->
+                    <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                               <span class="input-group-text">Sobrenome</span>
+                         </div>
+                            {% render_field form.last_name class+="form-control" %}
+                    </div>
+                                        <!-- Email -->
+                    <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                               <span class="input-group-text">E-mail</span>
+                         </div>
+                            {% render_field form.email class+="form-control" placeholder="nome@exemplo.com" %}
+                    </div>
+                                        <!-- Usúario -->
+                    <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                               <span class="input-group-text">Usúario</span>
+                         </div>
+                            {% render_field form.username class+="form-control" %}
+                    </div>
+                                        <!-- Senha -->
+                    <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                               <span class="input-group-text">Senha</span>
+                         </div>
+                            {% render_field form.password class+="form-control" %}
+                    </div>
+                                        <!-- Nascimento -->
+                    <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                               <span class="input-group-text">Data de Nascimento</span>
+                         </div>
+                            {% render_field form.nascimento class+="form-control" %}
+                    </div>
+                                          <!-- CPF -->
+                    <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                               <span class="input-group-text">CPF</span>
+                         </div>
+                            {% render_field form.CPF class+="form-control" placeholder="000.000.000-00" %}
+                    </div>
+                                        <!-- Telefone -->
+                    <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                               <span class="input-group-text">Telefone</span>
+                         </div>
+                            {% render_field form.telefone class+="form-control" placeholder="(43)00000-0000" %}
+                    </div>
+                                        <!-- Endereço -->
+                    <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                               <span class="input-group-text">Endereço</span>
+                         </div>
+                            {% render_field form.endereco class+="form-control" %}
+                    </div>
+                                            <!-- CTPS -->
+                    <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                               <span class="input-group-text">CTPS</span>
+                         </div>
+                            {% render_field form.CTPS class+="form-control" %}
+                    </div>
+                                         <!-- Cargo -->
+                    <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                               <span class="input-group-text">Cargo</span>
+                         </div>
+                            {% render_field form.cargo class+="form-control" %}
+                    </div>
+
                        <hr>
                             <div class="text-right">
                                 <a href="{% url 'app1:lista_funcionarios' %}" class="btn btn-outline-danger">Voltar</a>
