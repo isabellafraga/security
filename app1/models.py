@@ -23,9 +23,9 @@ class Cliente(models.Model):
 # Classe Funcionario
 class Funcionario(models.Model):
     CARGO_CHOICES = [
-        ["T", "Técnico"],
-        ["V", "Vendedor"],
-        ["G", "Gerente"]
+        ["Técnico", "Técnico"],
+        ["Vendedor", "Vendedor"],
+        ["Gerente", "Gerente"]
     ]
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, null=True)
     CPF = models.CharField(max_length=14, blank=False, null=True)
@@ -35,22 +35,7 @@ class Funcionario(models.Model):
     CTPS = models.CharField(max_length=11, blank=False, null=True)
     salario = models.DecimalField(max_digits=8, decimal_places=2, blank=False, null=True)
     admissao = models.DateField(auto_now=True, blank=False, null=True)
-    cargo = models.CharField(max_length=1, blank=False, choices=CARGO_CHOICES, null=True)
-    CATEGORIA_CHOICES = [
-        ["CFTV", "CFTV"],
-        ["AL", "Alarme"],
-        ["CA", "Controle de Acesso"],
-        ["TE", "Telefonia"],
-        ["RE", "Redes"],
-        ["PE", "Portão Eletrônico"],
-    ]
-    categoria = models.CharField(max_length=6, blank=False, choices=CATEGORIA_CHOICES, null=True)
-    COMISSAO_CHOICES = [
-        ["5%", "5%"],
-        ["10%", "10%"],
-        ["15%", "15%"],
-    ]
-    comissao = models.CharField(max_length=6, blank=False, choices=COMISSAO_CHOICES, null=True)
+    cargo = models.CharField(max_length=8, blank=False, choices=CARGO_CHOICES, null=True)
 
     objetos = models.Manager()
 

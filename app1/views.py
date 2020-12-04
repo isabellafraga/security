@@ -88,8 +88,6 @@ def funcionario(request):
             func.endereco = form.cleaned_data['endereco']
             func.CTPS = form.cleaned_data['CTPS']
             func.cargo = form.cleaned_data['cargo']
-            func.comissao = form.cleaned_data['comissao']
-            func.categoria = form.cleaned_data['categoria']
 
             func.usuario = usuario
             func.save()

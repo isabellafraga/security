@@ -20,21 +20,6 @@ class FormFuncionario(forms.Form):
         ["V", "Vendedor"],
         ["G", "Gerente"]
     ]
-    CATEGORIA_CHOICES = [
-        ["-", "------"],
-        ["CFTV", "CFTV"],
-        ["AL", "Alarme"],
-        ["CA", "Controle de Acesso"],
-        ["TE", "Telefonia"],
-        ["RE", "Redes"],
-        ["PE", "Portão Eletrônico"],
-    ]
-    COMISSAO_CHOICES = [
-        ["-", "------"],
-        ["5%", "5%"],
-        ["10%", "10%"],
-        ["15%", "15%"],
-    ]
     first_name = forms.CharField(label='Nome')
     last_name = forms.CharField()
     email = forms.EmailField()
@@ -47,8 +32,6 @@ class FormFuncionario(forms.Form):
     endereco = forms.CharField()
     CTPS = forms.CharField()
     cargo = forms.ChoiceField(choices=CARGO_CHOICES)
-    categoria = forms.ChoiceField(choices=CATEGORIA_CHOICES)
-    comissao = forms.ChoiceField(choices=COMISSAO_CHOICES)
 
     def __str__(self):
         return self.first_name
