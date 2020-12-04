@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 {% extends "app3/_layouts/base.html" %}
 {% load widget_tweaks %}
-{% load crispy_forms_tags %}
-{% load crispy_forms_filters %}
 {% load static %}
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar Produto</title>
+    <title>Cadastro de Produto</title>
 
 </head>
 <body>
     {% block conteudo %}
-     <div class="container mt-2 mb-5">
+     <div class="container mt-1 mb-5">
        <div class="row">
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
            <div class="card">
@@ -31,7 +29,7 @@
                             {% render_field form.nomep class+="form-control" %}
                     </div>
 
-                                        <!-- Email -->
+                                        <!-- Categoria -->
                     <div class="input-group mb-3">
                          <div class="input-group-prepend">
                                <span class="input-group-text">Categoria</span>
@@ -39,7 +37,7 @@
                             {% render_field form.categoria class+="form-control" %}
                     </div>
 
-                                       <!-- Telefone -->
+                                       <!-- Quantidade -->
                     <div class="input-group mb-3">
                          <div class="input-group-prepend">
                                    <span class="input-group-text">Quantidade</span>
@@ -47,14 +45,14 @@
                             {% render_field form.quantidade class+="form-control" %}
                     </div>
 
-                                      <!-- Endereço -->
+                                      <!-- Preço -->
                     <div class="input-group mb-3">
                          <div class="input-group-prepend">
                                <span class="input-group-text">Preço</span>
                          </div>
                             {% render_field form.preco class+="form-control" %}
                     </div>
-                                        <!-- CNPJ -->
+                                        <!-- Fornecedor -->
                     <div class="input-group mb-3">
                          <div class="input-group-prepend">
                                <span class="input-group-text">Fornecedor</span>
@@ -62,17 +60,13 @@
                             {% render_field form.fornecedor class+="form-control" %}
                     </div>
 
-
-
-
                        <hr>
                             <div class="text-right">
                                 <a href="{% url 'app1:lista_produtos' %}" class="btn btn-outline-danger">Voltar</a>
                                 <button class="btn btn-success">Enviar</button>
                             </div>
+                    <hr>
                 </form>
-
-
              </div>
            </div>
          </div>

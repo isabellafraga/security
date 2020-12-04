@@ -21,6 +21,6 @@ from app1 import views
 
 urlpatterns = [
     path('', views.loginn, name="login"),
-    path('app1/', include('app1.urls', namespace='app1')),
-    path('admin/', admin.site.urls),
+    path('app1/', include('app1.urls')),
+    path('admin/', admin.site.urls, name="admin"),
 ]

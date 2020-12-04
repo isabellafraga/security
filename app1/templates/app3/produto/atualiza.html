@@ -5,7 +5,7 @@
 {% block title %}Atualização de Produto{% endblock %}
 
 {% block conteudo %}
-<div class="container mt-2 mb-5">
+<div class="container mt-1 mb-5">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="card">
@@ -23,7 +23,7 @@
                             {% render_field form.nomep class+="form-control" %}
                     </div>
 
-                                        <!-- Email -->
+                                        <!-- Categoria -->
                     <div class="input-group mb-3">
                          <div class="input-group-prepend">
                                <span class="input-group-text">Categoria</span>
@@ -31,7 +31,7 @@
                             {% render_field form.categoria class+="form-control" %}
                     </div>
 
-                                       <!-- Telefone -->
+                                       <!-- Quantidade -->
                     <div class="input-group mb-3">
                          <div class="input-group-prepend">
                                <span class="input-group-text">Quantidade</span>
@@ -39,14 +39,14 @@
                             {% render_field form.quantidade class+="form-control" %}
                     </div>
 
-                                      <!-- Endereço -->
+                                      <!-- Preço -->
                     <div class="input-group mb-3">
                          <div class="input-group-prepend">
                                <span class="input-group-text">Preço</span>
                          </div>
                             {% render_field form.preco class+="form-control" %}
                     </div>
-                                        <!-- CNPJ -->
+                                        <!-- Fornecedor -->
                     <div class="input-group mb-3">
                          <div class="input-group-prepend">
                                <span class="input-group-text">Fornecedor</span>
@@ -59,6 +59,7 @@
               <a href="{% url 'app1:lista_produtos' %}" class="btn btn-outline-danger">Voltar</a>
               <button class="btn btn-success">Enviar</button>
             </div>
+              <hr>
           </form>
         </div>
       </div>

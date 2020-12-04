@@ -1,0 +1,74 @@
+{% extends "app3/_layouts/base.html" %}
+
+{% block title %}Lista de Orçamento{% endblock %}
+
+{% block conteudo %}
+
+<div class="container-fluid mt-2 mb-5">
+  <div class="row">
+    <div class="col-lg-15 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Lista de Orçamentos</h5>
+
+          {% if orcamentos|length > 0 %}
+            <p class="card-text">
+              Aqui está a lista de <code>Orçamentos</code> cadastrados.
+            </p>
+            <div class="search-list">
+            <table class="table" id="myTable">
+              <thead class="thead-dark">
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Produto</th>
+                <th scope="col">Data</th>
+                <th scope="col">Serviço</th>
+                <th scope="col">Funcionário</th>
+                <th scope="col">Preço</th>
+                <th scope="col" class="text-center">Ações</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for orcamento in orcamentos %}
+                <tr>
+                  <th scope="row">{{ orcamento.id }}</th>
+                  <td>{{ orcamento.cliente }}</td>
+                  <td>{{ orcamento.produto }}</td>
+                  <td>{{ orcamento.data|date:"d/m/o" }}</td>
+                  <td>{{ orcamento.categoria }}</td>
+                  <td>{{ orcamento.funcionario }}</td>
+                  <td>{{ orcamento.produto.preco }}</td>
+                  <td class="text-center">
+                    <a href="{% url 'app1:atualiza_orcamento' pk=orcamento.id %}"
+                       class="btn btn-primary">
+                      Atualizar
+                    </a>
+                    <a href="{% url 'app1:deleta_orcamento' pk=orcamento.id %}"
+                      class="btn btn-danger">
+                        Excluir
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+            </div>
+        {% else %}
+          <div class="text-center mt-5 mb-5 jumbotron">
+            <h5>Nenhum <code>Orçamento</code> cadastrado ainda.</h5>
+          </div>
+        {% endif %}
+          <hr />
+          <div class="text-right">
+            <a href="{% url 'app1:cadastra_orcamento' %}" class="btn btn-success">
+              Cadastrar Orçamento
+            </a>
+          </div>
+        <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

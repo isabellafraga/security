@@ -1,8 +1,6 @@
 {% extends "app3/_layouts/base.html" %}
 
 {% load widget_tweaks %}
-{% load crispy_forms_tags %}
-{% load crispy_forms_filters %}
 
 {% block title %}Cadastro de Funcionários{% endblock %}
 
@@ -100,6 +98,7 @@
                                 <a href="{% url 'app1:lista_funcionarios' %}" class="btn btn-outline-danger">Voltar</a>
                                 <button class="btn btn-success">Enviar</button>
                             </div>
+                    <hr>
                 </form>
              </div>
            </div>

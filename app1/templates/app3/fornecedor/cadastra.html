@@ -1,87 +1,11 @@
 <!DOCTYPE html>
 {% extends "app3/_layouts/base.html" %}
 {% load widget_tweaks %}
-{% load crispy_forms_tags %}
-{% load crispy_forms_filters %}
 {% load static %}
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar Fornecedor</title>
-    <script type="text/javascript">
-
-	var idContador = 0;
-
-	function exclui(id){
-		var campo = $("#"+id.id);
-		campo.hide(200);
-	}
-
-	$( document ).ready(function() {
-
-		$("#btnAdicionaCategoria").click(function(e){
-			e.preventDefault();
-			var tipoCampo = "categoria";
-			adicionaCampo(tipoCampo);
-		})
-
-		function adicionaCampo(tipo){
-
-			idContador++;
-
-			var idCampo = "campoExtra"+idContador;
-			var idForm = "formExtra"+idContador;
-
-			var html = "";
-
-			html += "<div style='margin-top: 8px;' class='input-group' id='"+idForm+"'>";
-			html += "<input type='text' id='"+idCampo+"' class='form-control novoCampo' placeholder='Insira um "+tipo+"'/>";
-			html += "<span class='input-group-btn'>";
-			html +=	"<button class='btn' onclick='exclui("+idForm+")' type='button'><span class='fa fa-trash'></span></button>";html +=	"<button class='btn' onclick='exclui("+idForm+")' type='button'><span class='fa fa-trash'></span></button>";
-			html += "</span>";
-			html += "</div>";
-
-			$("#imendaHTML"+tipo).append(html);
-		}
-
-		$(".btnExcluir").click(function(){
-			console.log("clicou");
-			$(this).slideUp(200);
-		})
-
-		$("#btnSalvar").click(function(){
-
-		var mensagem = "";
-		var novosCampos = [];
-		var camposNulos = false;
-
-			$('.campoDefault').each(function(){
-				if($(this).val().length < 1){
-					camposNulos = true;
-				}
-			});
-			$('.novoCampo').each(function(){
-				if($(this).is(":visible")){
-					if($(this).val().length < 1){
-						camposNulos = true;
-					}
-					//novosCampos.push($(this).val());
-					mensagem+= $(this).val()+"\n";
-				}
-			});
-
-			if(camposNulos == true){
-				alert("Atenção: existem campos nulos");
-			}else{
-				alert("Novos campos adicionados: \n\n "+mensagem);
-			}
-
-			novosCampos = [];
-		})
-
-	});
-
-	</script>
+    <title>Cadastro de Fornecedor</title>
 </head>
 <body>
     {% block conteudo %}
@@ -146,14 +70,12 @@
 
                     </div>
 
-
-
-
                        <hr>
                             <div class="text-right">
                                 <a href="{% url 'app1:lista_fornecedores' %}" class="btn btn-outline-danger">Voltar</a>
                                 <button class="btn btn-success">Enviar</button>
                             </div>
+                    <hr>
                 </form>
 
              </div>

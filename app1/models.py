@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+from libgravatar import Gravatar
 
 
-# Create your models here.
+# Classe Cliente
 
 class Cliente(models.Model):
     nome = models.CharField(max_length=100, blank=False, null=True)
@@ -13,9 +15,12 @@ class Cliente(models.Model):
     telefone = models.CharField(max_length=12, blank=False, null=True)
     endereco = models.CharField(max_length=150, blank=False, null=True)
 
+    objetos = models.Manager()
+
     def __str__(self):
         return self.nome
 
+# Classe Funcionario
 class Funcionario(models.Model):
     CARGO_CHOICES = [
         ["T", "Técnico"],
@@ -31,11 +36,28 @@ class Funcionario(models.Model):
     salario = models.DecimalField(max_digits=8, decimal_places=2, blank=False, null=True)
     admissao = models.DateField(auto_now=True, blank=False, null=True)
     cargo = models.CharField(max_length=1, blank=False, choices=CARGO_CHOICES, null=True)
+    CATEGORIA_CHOICES = [
+        ["CFTV", "CFTV"],
+        ["AL", "Alarme"],
+        ["CA", "Controle de Acesso"],
+        ["TE", "Telefonia"],
+        ["RE", "Redes"],
+        ["PE", "Portão Eletrônico"],
+    ]
+    categoria = models.CharField(max_length=6, blank=False, choices=CATEGORIA_CHOICES, null=True)
+    COMISSAO_CHOICES = [
+        ["5%", "5%"],
+        ["10%", "10%"],
+        ["15%", "15%"],
+    ]
+    comissao = models.CharField(max_length=6, blank=False, choices=COMISSAO_CHOICES, null=True)
 
+    objetos = models.Manager()
 
     def __str__(self):
-        return self.usuario.username
+        return self.usuario.first_name
 
+# Classe Fornecedor
 class Fornecedor(models.Model):
     CATEGORIA_CHOICES = [
         ["CFTV", "CFTV"],
@@ -54,12 +76,16 @@ class Fornecedor(models.Model):
 
     objetos = models.Manager()
 
+    def __str__(self):
+        return self.nome
 
+# Classe Produtos
 class Produto(models.Model):
     fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE, null=True)
     nomep = models.CharField(max_length=100, blank=False, null=True)
-    quantidade = models.PositiveIntegerField(blank=False, null=True)
-    preco = models.PositiveIntegerField(blank=False, null=True)
+    quantidade = models.DecimalField(max_digits=5,decimal_places=0, blank=False, null=True)
+    preco = models.DecimalField(max_digits=15,decimal_places=2, null=True)
+
     CATEGORIA_CHOICES = [
         ["CFTV", "CFTV"],
         ["AL", "Alarme"],
@@ -70,6 +96,114 @@ class Produto(models.Model):
     ]
     categoria = models.CharField(max_length=6, blank=False, choices=CATEGORIA_CHOICES, null=True)
 
+    objetos = models.Manager()
+
     def __str__(self):
-        return self.nomep
+      return self.nomep
+
+# Classe Agenda
+class Event(models.Model):
+    """Classe contendo a agenda propriamente dito, sua data, descrição
+    e também prioridade."""
+    date = models.DateField(null=True)
+    event = models.CharField(max_length=80, null=True)
+    priorities_list = (
+        ("0", "Sem prioridade"),
+        ("1", "Normal"),
+        ("2", "Urgente"),
+        ("3", "Muito Urgente"),
+    )
+    priority = models.CharField(max_length=1, choices=priorities_list, null=True)
+
+    class Meta:
+        ordering = ("-date", "-priority", "event")
+
+    def number_of_comments(self):
+        """Retorna a quantidade de comentários dentro de um serviço."""
+        return self.comment_event.count()
+
+    @property
+    def text_priority(self):
+        """ Converte o valor da prioridade no texto correspondente. """
+        for k, v in self.priorities_list:
+            if k == self.priority:
+                return v
+        return ""
+
+    def __str__(self):
+        return self.event
+
+# Classe Comentários de Serviços
+class Comment(models.Model):
+    """Comentários efetuados em um determinado serviço."""
+
+    author = models.CharField(max_length=80, null=True)
+    email = models.EmailField(null=True)
+    text = models.CharField(max_length=160, null=True)
+    commented = models.DateTimeField(default=timezone.now, null=True)
+    event = models.ForeignKey(
+        Event, on_delete=models.CASCADE, related_name="comment_event", null=True
+    )
+
+    class Meta:
+        ordering = ("-commented",)
+
+    def avatar(self):
+        """Retorna a partir do endereço de e-mail, um avatar
+        configurado no Gravatar ou um dos avatares padrão deles."""
+        g = Gravatar(self.email)
+        return g.get_image(default="identicon")
+
+
+    def __str__(self):
+        return "'{}'\n{} em {:%c}".format(
+            self.text, self.author, self.commented
+        )
+
+# Classe Orçamento
+class Orcamento(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True)
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE, null=True)
+    funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE, null=True)
+    data = models.DateField(null=True)
+    CATEGORIA_CHOICES = [
+        ["CFTV", "CFTV"],
+        ["AL", "Alarme"],
+        ["CA", "Controle de Acesso"],
+        ["TE", "Telefonia"],
+        ["RE", "Redes"],
+        ["PE", "Portão Eletrônico"],
+    ]
+    categoria = models.CharField(max_length=6, blank=False, choices=CATEGORIA_CHOICES, null=True)
+
+    objetos = models.Manager()
+
+    def __str__(self):
+        return self.cliente.nome
+
+# Classe Metas
+class Metas(models.Model):
+    MESES_CHOICES = [
+        ["Janeiro", "Janeiro"], ["Fevereiro", "Fevereiro"], ["Março", "Março"], ["Abril", "Abril"], ["Maio", "Maio"],
+        ["Junho", "Junho"], ["Julho", "Julho"], ["Agosto", "Agosto"], ["Setembro", "Setembro"], ["Outubro", "Outrubro"],
+        ["Novembro", "Novembro"], ["Dezembro", "Dezembro"]
+    ]
+    meses = models.CharField(max_length=10, blank=False, choices=MESES_CHOICES, null=True)
+    meta = models.CharField(max_length=150, blank=False, null=True)
+    data = models.DateField(blank=False, null=True)
+    CARGO_CHOICES = [
+        ["Vendedor", "Vendedor"],
+        ["Técnico", "Técnico"]
+    ]
+    cargo = models.CharField(max_length=8, blank=False, choices=CARGO_CHOICES, null=True)
+    CONCLUIDA_CHOICES = [
+        ["Sim", "Sim"],
+        ["Não", "Não"]
+    ]
+    concluida = models.CharField(max_length=3, choices=CONCLUIDA_CHOICES, blank=False, null=True)
+
+    objetos = models.Manager()
+
+    def __str__(self):
+        return self.meta
 

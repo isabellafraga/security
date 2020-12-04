@@ -1,12 +1,11 @@
+<!-- Cadastro de Cliente -->
 <!DOCTYPE html>
 {% extends "app3/_layouts/base.html" %}
 {% load widget_tweaks %}
-{% load crispy_forms_tags %}
-{% load crispy_forms_filters %}
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cliente</title>
+    <title>Cadastra Cliente</title>
 </head>
 <body>
     {% block conteudo %}
@@ -49,7 +48,7 @@
                          </div>
                             {% render_field form.email class+="form-control" placeholder="nome@exemplo.com" %}
                     </div>
-                                        <!-- CNPJ -->
+                                        <!-- CPF/CNPJ -->
                     <div class="input-group mb-3">
                          <div class="input-group-prepend">
                                <span class="input-group-text">CPF/CNPJ</span>
@@ -75,6 +74,7 @@
                                 <a href="{% url 'app1:lista_clientes' %}" class="btn btn-outline-danger">Voltar</a>
                                 <button class="btn btn-success">Enviar</button>
                             </div>
+                    <hr>
                 </form>
              </div>
            </div>

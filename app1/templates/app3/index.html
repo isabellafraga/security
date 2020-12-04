@@ -33,7 +33,7 @@
                    <div class="mt-5 text-center">
                          <h1 style="color: black;">Olá.</h1>
                       {% if user.is_authenticated %}
-                          <h2 style="color: black;">Seja Bem Vindo, {{ user.username }}!</h2>
+                          <h2 style="color: black;">Seja Bem Vindo, {{ user.first_name }}!</h2>
                       {% else %}
                           <h2 style="color: black;">Seja Bem Vindo, Desconhecido!</h2>
                       {% endif %}

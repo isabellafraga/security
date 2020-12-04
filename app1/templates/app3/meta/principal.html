@@ -1,0 +1,37 @@
+<!-- Estendemos do template base -->
+{% extends "app3/_layouts/base.html" %}
+
+<!-- Bloco que define o <title></title> da nossa página -->
+{% block title %}Meta{% endblock %}
+
+<!-- Bloco de conteúdo da nossa página -->
+{% block conteudo %}
+<div class="container mt-5">
+  <div class="row">
+      {% if user.is_staff %}
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Cadastrar Meta</h5>
+          <p class="card-text">
+            Cadastre aqui um novo <code>Meta</code>.
+          </p>
+          <a href="{% url 'app1:cadastra_meta' %}" class="btn btn-success">Nova Meta</a>
+        </div>
+      </div>
+    </div>
+      {% endif %}
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Lista de Metas</h5>
+          <p class="card-text">
+            Veja aqui a lista de <code>Metas</code> cadastrados.
+          </p>
+          <a href="{% url 'app1:lista_metas' %}" class="btn btn-primary">Vá para Lista</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

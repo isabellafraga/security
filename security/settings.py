@@ -46,9 +46,10 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'cpf_field',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
-
 ]
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -149,6 +150,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        # ↓↓↓ remover se não precisar da autenticação básica do HTTP ↓↓↓
+        "rest_framework.authentication.BasicAuthentication",
+        # ↑↑↑ remover se não precisar da autenticação básica do HTTP ↑↑↑
+    ],
+}
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'app1/media')
 LOGIN_URL = 'app1:login'
